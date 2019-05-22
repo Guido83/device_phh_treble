@@ -71,7 +71,7 @@ changeKeylayout() {
         -e xiaomi/wayne -e xiaomi/jasmine -e xiaomi/jasmine_sprout \
         -e xiaomi/platina -e iaomi/perseus -e xiaomi/ysl \
         -e xiaomi/nitrogen -e xiaomi/daisy -e xiaomi/sakura \
-        -e xiaomi/whyred; then
+        -e xiaomi/whyred -e xiaomi/tulip; then
         cp /system/phh/empty /mnt/phh/keylayout/uinput-goodix.kl
         chmod 0644 /mnt/phh/keylayout/uinput-goodix.kl
         cp /system/phh/empty /mnt/phh/keylayout/uinput-fpc.kl
@@ -160,7 +160,7 @@ fi
 if getprop ro.vendor.build.fingerprint | grep -q -i \
     -e xiaomi/clover -e xiaomi/wayne -e xiaomi/sakura \
     -e xiaomi/nitrogen -e xiaomi/whyred -e xiaomi/platina \
-    -e xiaomi/ysl -e nubia/nx60; then
+    -e xiaomi/ysl -e nubia/nx60 -e nubia/nx61 -e xiaomi/tulip; then
     setprop persist.sys.qcom-brightness "$(cat /sys/class/leds/lcd-backlight/max_brightness)"
 fi
 
@@ -173,7 +173,8 @@ if getprop ro.vendor.build.fingerprint | grep -iq \
     -e Xiaomi/dipper/dipper -e Xiaomi/ursa/ursa -e Xiaomi/polaris/polaris \
     -e motorola/ali/ali -e iaomi/perseus/perseus -e iaomi/platina/platina \
     -e iaomi/equuleus/equuleus -e motorola/nora -e xiaomi/nitrogen \
-    -e motorola/hannah -e motorola/james -e motorola/pettyl -e iaomi/cepheus;then
+    -e motorola/hannah -e motorola/james -e motorola/pettyl -e iaomi/cepheus \
+    -e iaomi/grus;then
     mount -o bind /mnt/phh/empty_dir /vendor/lib64/soundfx
     mount -o bind /mnt/phh/empty_dir /vendor/lib/soundfx
 fi
@@ -229,7 +230,7 @@ mount -o bind /system/phh/empty /vendor/overlay/SysuiDarkTheme/SysuiDarkThemeOve
 
 if grep -qF 'PowerVR Rogue GE8100' /vendor/lib/egl/GLESv1_CM_mtk.so ||
     grep -qF 'PowerVR Rogue' /vendor/lib/egl/libGLESv1_CM_mtk.so ||
-    (getprop ro.product.board | grep -qiE -e msm8917 -e msm8937 -e msm8940); then
+    ( (getprop ro.product.board; getprop ro.board.platform) | grep -qiE -e msm8917 -e msm8937 -e msm8940); then
 
     setprop debug.hwui.renderer opengl
 fi
